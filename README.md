@@ -32,3 +32,14 @@ Start writing our crud related routes
   - Delete a record
 
 Talk about testing
+
+# Lab 04
+
+- add 2 new models 
+  ~~- customers and orders~~
+~~- add a collection class~~ 
+~~- bring everything into models index~~
+~~- create associations between customers and orders~~
+~~- make the customer and order's Collection instances~~
+- create routers for each
+- test

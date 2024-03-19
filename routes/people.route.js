@@ -20,6 +20,8 @@ router.post('/people', createPerson); // creates a single person record
 
 router.put('/people/:id', updatePerson) // updates a single person record
 
+router.delete('/people/:id', deletePerson)
+
 // route handlers - all async because database
 async function getPeople(req, res) {
   // searches the db and return all peoples
@@ -35,7 +37,8 @@ async function getOnePerson(req, res) {
   const id = parseInt(req.params.id);
 
   // go into People table findOne record where the id matches the id on line 34 from the url 
-  let retrievedPerson = await People.findOne({where: {id: id}})
+  let retrievedPerson = await People.findOne({ where: { id: id } })
+  // blue curly bracket are the options
 
   res.status(200).json(retrievedPerson);
 }
@@ -57,14 +60,24 @@ async function updatePerson(req, res) {
   const updatedPersonObj = req.body;
 
   //find current record associated with that person and update the record
-  let retrievedPerson = await People.findOne({where: {id: id}})
+  let retrievedPerson = await People.findOne({ where: { id: id } })
   //update record
   let updatedPerson = await retrievedPerson.update(updatedPersonObj);
   // send to client
   res.status(200).json(updatedPerson);
-  
+
 
   res.status(200).json(retrievedPerson);
+}
+
+async function deletePerson(req, res) {
+  // need to convert string from the request into an actual value because when you make the get request, the id is a number and not a string.
+  const id = parseInt(req.params.id);
+
+  // go into People table delete record where the id matches the id on line 74 from the url 
+  let deletePerson = await People.destroy({ where: { id } })
+
+  res.status(204).json(deletePerson);
 }
 
 module.exports = router;
